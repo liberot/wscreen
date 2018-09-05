@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?><result>
+Mikrocontroller			
+				aus Wikipedia, der freien Enzyklopädie				
+								Zur Navigation springen
+				Zur Suche springen
+				Als Mikrocontroller (auch µController, µC, MCU) werden Halbleiterchips bezeichnet, die einen Prozessor und zugleich auch Peripheriefunktionen enthalten. In vielen Fällen befindet sich auch der Arbeits- und Programmspeicher teilweise oder komplett auf demselben Chip. Ein Mikrocontroller ist ein Ein-Chip-Computersystem. Für manche Mikrocontroller wird auch der Begriff System-on-a-Chip oder SoC verwendet.
+Auf modernen Mikrocontrollern finden sich häufig auch komplexe Peripheriefunktionen wie z.&#160;B. CAN- (Controller Area Network), LIN- (Local Interconnect Network), USB- (Universal Serial Bus), I²C- (Inter-Integrated Circuit), SPI- (Serial Peripheral Interface), serielle oder Ethernet-Schnittstellen, PWM-Ausgänge, LCD-Controller und -Treiber sowie Analog-Digital-Umsetzer. Einige Mikrocontroller verfügen auch über programmierbare digitale und/oder analoge bzw. hybride Funktionsblöcke.
+  Mikrocontroller im Keramikgehäuse mit Quarzglasfenster
+Inhaltsverzeichnis
+1 Einsatzbereiche
+2 Abgrenzung zu Mikroprozessoren
+3 Architekturen
+4 Benutzte Programmspeicher
+5 Programmierung
+6 Siehe auch
+7 Literatur
+8 Weblinks
+Einsatzbereiche[Bearbeiten | Quelltext bearbeiten]
+Der Mikrocontroller tritt in Gestalt von eingebetteten Systemen im Alltag oft unbemerkt in technischen Gebrauchsartikeln auf, zum Beispiel in Waschmaschinen, Chipkarten (Geld-, Telefonkarten), Unterhaltungselektronik (Videorekordern, CD-/DVD-Spieler, Radios, Fernsehgeräten, Fernbedienungen), Büroelektronik, Kraftfahrzeugen (Steuergeräte für z.&#160;B. ABS, Airbag, Motor, Kombiinstrument, ESP usw.), Mobiltelefonen und sogar in Uhren und Armbanduhren. Darüber hinaus sind sie in praktisch allen Computer-Peripheriegeräten enthalten (Tastatur, Maus, Drucker, Monitor, Scanner uvm.).
+Mikrocontroller sind in Leistung und Ausstattung auf die jeweilige Anwendung angepasst. Daher haben sie gegenüber „normalen“ Computern Vorteile bei den Kosten und der Leistungsaufnahme. Kleine Mikrocontroller sind in höheren Stückzahlen für wenige Cent verfügbar.
+Abgrenzung zu Mikroprozessoren[Bearbeiten | Quelltext bearbeiten]
+  Rockwell R6511 Mikrocontroller, basierend auf dem 6502
+Die Grenze zwischen Mikrocontrollern und Mikroprozessoren ist fließend, was sich auch darin zeigt, dass oft nach einiger Zeit auch Mikrocontroller-Varianten einer neuen Mikroprozessor-Architektur erschienen sind. Im einfachsten Fall geschieht dies, indem die bei einem klassischen Mikroprozessor als Unterstützungs- und Peripheriebausteine realisierten Komponenten wie Takt- und Reset-Erzeugung, Interruptcontroller, Zeitgeber, Schnittstellenbaustein und zum Teil auch Speichercontroller in den Chip selbst integriert werden, so dass für ein funktionsfähiges Prozessorsystem oft nur noch ein Quarz (für den Takt) und Speicherbausteine nötig sind. Typische Vertreter dieser Gattung sind z.&#160;B. der Intel 80186 (vom 8086 abgeleitet), die XScale-Familie (ARM) sowie ColdFire (MC680xx) von Freescale (vormals Motorola). Diese Controller-Baureihen werden oft auch noch dann weitergeführt, wenn die betreffende Mainstream-CPU schon längst nicht mehr produziert wird (z.&#160;B. 6502, MC680xx).
+Teilweise werden Mikrocontroller auch als Bestandteil eines Multi Chip Modules (MCM) verwendet. Das geschieht meistens dann, wenn verschiedene Halbleiterprozesse kombiniert werden sollen, die sich schlecht oder gar nicht auf einem Chip kombinieren lassen. Beispiele dafür sind Kombinationen von Mikrocontrollern mit Hochfrequenzschaltungen für Funkverbindungen (z.&#160;B. Atmel, Cypress, Microchip stellen solche MCMs her), mit Leistungselektronik (z.&#160;B. Freescale, ST) oder mit Flash-ROM in dessen Anfangszeiten (z.&#160;B. Micronas Intermetall). Teilweise wird die Lösung mit einem MCM auch benutzt, wenn bereits vorhandene Chips miteinander kombiniert werden sollen, aber der Aufwand für einen Neuentwurf vermieden werden soll. Beispiele dafür sind Kombinationen mit Netzwerkcontrollern, bzw. den Anschlusstreibern für Netzwerke (PHY) oder LCD-Controllern.
+Demgegenüber gibt es aber auch „klassische“ Mikrocontrollerarchitekturen, die von Anfang an nicht als reines Mikroprozessorsystem gedacht waren, sondern primär auf Steuerungsaufgaben zielten. Diese zeichnen sich z.&#160;B. dadurch aus, dass mit ihnen auch ein Single-Chip-Betrieb völlig ohne externe Speicherbausteine möglich ist, ebenso wie der Befehlssatz der CPU meist spezialisierte Befehle für das Steuern einzelner Signalleitungen (mittels sogenannter Bitmanipulationen) bietet. Ebenfalls wichtig ist für solche Controller eine möglichst kurze Interrupt-Latenzzeit, also die Zeitspanne, die der Controller braucht, um auf die Unterbrechungsanforderung einer Signalquelle (Zeitgeber, Peripheriebaustein etc.) zu reagieren. Typische Vertreter dieser Gattung sind z.&#160;B. der 8051 von Intel sowie der C166 von Siemens (heute Infineon) und Infineon TriCore. Zur Funktionsüberwachung von Mikrocontrollersteuerungen werden in der Regel sogenannte Watchdog-Schaltungen eingesetzt, die teilweise aber auch schon in den Mikrocontroller integriert sind.
+Diese Trennung fand beim Intel 8085 statt – danach gab es die reinen Datenverarbeiter (Mikroprozessor; z.&#160;B. 8086-Familie) und die Datenübersetzer (Mikrocontroller; z.&#160;B. 8048, 8051) als Schnittstelle zwischen der Hardware und dem zentralen Mikroprozessor. Mikrocontroller können auch eine passive Bus-Schnittstelle haben (z.&#160;B. 8041A, eine Variante des 8048) – aus Sicht des Mikroprozessors wie ein Peripherie-Chip. Ob TV, VHS-Recorder, Röntgengerät, Auto oder PC, überall gibt es heute die Arbeitsteilung zwischen diesen beiden Typen. Durch die Einführung der Busse (K-Bus, CAN-Bus, LIN, FlexRay) kann sich der zentrale Prozessor völlig auf die Auswertung der Message (Telegramm) konzentrieren – z.&#160;B. „Taster Handbremse_Ein gedrückt“. Nur der zuständige Controller kennt das Ereignis in der Hardware oder auf einem untergeordneten Bus, das zur Entstehung dieser Message führte. Sendet der Prozessor nun eine Message, z.&#160;B. „Handbremse lösen“, wird der Controller die Hardware entsprechend ansteuern bzw. den untergeordneten Bus informieren. Allerdings sind heutige Controller auch schon so rechenstark, dass sie oft auch ohne einen übergeordneten Mikroprozessor auskommen und alle anfallenden Aufgaben selbst komplett bewältigen können.
+Architekturen[Bearbeiten | Quelltext bearbeiten]
+Die Anzahl der verbauten Mikrocontroller überschreitet bei weitem die Zahl der Mikroprozessoren. Die überwiegende Mehrzahl der verwendeten Mikrocontroller basiert auf 8-Bit-Prozessoren, deren grundlegende Architektur teilweise noch aus der ersten Hälfte der 1970er Jahre stammt. Es gibt jedoch auch 4-, 16- und 32-Bit-Mikrocontroller. Mengenmäßig sind auch die 4-Bit-Mikrocontroller nach wie vor stark vertreten, da sie aufgrund ihres einfachen Aufbaus entsprechend billig herzustellen sind und für einfache Aufgaben, wie z.&#160;B. Uhren, ausreichen.
+8- und 16-Bit-Mikrocontroller sind mittlerweile dabei, Marktanteile an die 32-Bit-Mikrocontroller zu verlieren. Der Grund ist, dass in modernen Halbleiterprozessoren zwischen 8 und 16 und 32 Bit kein sehr großer Unterschied im Fertigungsaufwand mehr liegt, der Vorteil durch das einfachere Speichermanagement der 32-Bit-Mikrocontroller und der damit einfacheren Programmierung aber erheblich ist. Allerdings benötigen 8- und 16-Bit Mikrocontroller weniger Transistoren, was dazu führt, dass sie, sofern sie auf einem modernen Prozessordesign mit Stromsparmechanismen basieren, meist sparsamer als die 32-Bit-Mikrocontroller sind.
+Viele der heute eingesetzten Mikrocontroller basieren auf Prozessorkernen, die zuvor als Mikroprozessoren eingesetzt wurden. Bei den 8- und 16-Bit-Mikrocontrollern werden die Mikroprozessoren mittlerweile meist nicht mehr hergestellt. Es gibt aber auch Mikrocontrollerkerne, die nicht als Mikroprozessor gefertigt wurden, wie Atmel AVR, PIC-Mikrocontroller, Silicon Labs EFM8 oder EFM32, TI MSP430, Infineon TriCore, XMC4000, XMC1000, XE166, XC800, Aurix und weitere.
+Benutzte Programmspeicher[Bearbeiten | Quelltext bearbeiten]
+  Verschiedene Varianten der MC68HC05J Familie. Von links: MC68HC705JJ7 mit EPROM, MC68HC705J1A mit PROM, MC68HC05J1A mit Masken-ROM Freigabemuster, MC68HC05J1A mit Masken-ROM Produktionsversion
+  Kurzzeitig existierende Zwischenlösung (piggyback) mit externem EPROM (oben) auf einem fest integrierten Sockel und integrierter Schnittstellenlogik.
+Die in Mikrocontrollern eingesetzten Speichertypen haben sich im Laufe der Jahre geändert und hängen teilweise auch von der Architektur und wirtschaftlichen Gesichtspunkten ab. In der Anfangszeit der Mikrocontroller, und auch heute noch bei den 4-Bit-Architekturen, gab es fast ausschließlich ROM-Speicher. Software für solche Mikrocontroller muss mit entsprechenden Entwicklungssystemen erstellt werden, die eine Simulation des Mikrocontrollers erlauben und meist über einen In-Circuit-Emulator verfügen. Die so erstellte Software wird dann an den Hersteller des Mikrocontrollers übermittelt, der dann die Chips im Fertigungsprozess mit dieser Software versieht. Meist geschieht das bei der Aufbringung der letzten Metalllage auf den Chip (der letzten „Maske“, daher auch „maskenprogrammierte Mikrocontroller“).
+Nachteilig bei diesem Verfahren ist die geringe Flexibilität, da bei einer Änderung der Software eine Verzögerung von mehreren Wochen oder sogar Monaten auftritt. Für kleinere Projekte ist diese Technik gar nicht einsetzbar, da die meisten Hersteller Mindestbestellmengen von 20.000 Chips vorsehen. Zudem ist die Fehleranfälligkeit hoch, da die Software nicht auf dem endgültigen Chip, sondern nur mithilfe des Entwicklungssystems getestet werden konnte. Demgegenüber steht der günstigere Preis der Chips, da der Fertigungsprozess für ROM-Speicher etwas einfacher ist als der für programmierbare Speicher und natürlich der Wegfall des Programmierens als Fertigungsschritt. Aus diesem Grund werden heute noch bei Produkten mit sehr großen Stückzahlen und dadurch niedrigen Stückpreisen fast ausschließlich Varianten mit ROM-Speicher eingesetzt.
+Um den Entwicklungsprozess zu vereinfachen und Projekte mit kleinen Stückzahlen zu ermöglichen, erschienen in der zweiten Hälfte der 1970er Jahre Mikrocontroller auf dem Markt, die EPROMs (Erasable Programmable Read Only Memory) verwendeten. Bei diesen Mikrocontrollern konnte der Programmspeicher mit einem entsprechenden Programmiergerät beschrieben werden und durch UV-Licht wieder gelöscht werden. Damit stand ein wesentlich preisgünstigeres Entwicklungswerkzeug zur Verfügung, das außerdem einen sehr praxisnahen Test erlaubte. Zusätzlich wurden damit auch Projekte mit kleineren Stückzahlen möglich. Besonders durch das aufwändige Keramikgehäuse mit eingelassenem Quarz-Fenster für das Löschen des EPROM-Speichers waren diese Chips allerdings gegenüber den ROM-Versionen deutlich teurer.
+Aufgrund der zunehmenden Verwendung der EPROM-basierten Mikrocontroller wurden dann in den 1980er Jahren auch Chips verfügbar, die in einem Kunststoffgehäuse ohne Fenster montiert sind, also nach dem Programmieren nicht mehr durch UV-Licht gelöscht werden können. Diese auch OTP (One Time Programmable – einmal programmierbar) genannten Mikrocontroller sind preislich den ROM-Versionen relativ nahe. Die größere Flexibilität und der Wegfall der Startkosten (für ROM-Versionen berechnet der Hersteller einmal anfallende Werkzeugkosten für jede neue Softwareversion) führt dazu, dass bei zahlreichen Schaltungen auch bei größeren Stückzahlen diese OTP-Chips eingesetzt werden.
+Mittlerweile dominiert bei neuen Mikrocontrollern und kleineren Stückzahlen bzw. in der Entwicklungsphase Flash-Speicher als Programmspeicher. Da dieser direkt elektrisch löschbar und wiederbeschreibbar ist, entfällt das aufwändige Keramikgehäuse, und der Speicher kann im Herstellungsprozess komplett getestet werden. Bei wirklich großen Stückzahlen ist weiterhin der Kostenvorteil der ROM-Version wirksam.
+Die heute eingesetzten Mikrocontroller sind eine Mischung aus diesen Techniken. Einerseits sind die Anforderungen der jeweiligen Anwendung ein Faktor (ROM kann z.&#160;B. bei extremen Temperaturanforderungen der einzig ausreichend stabile Speicher sein, EPROM hat hier noch Vorteile gegenüber Flash), andererseits sind viele der Mikrocontroller schon lange Zeit auf dem Markt.
+Typische Speichergrößen heutiger Mikrocontroller liegen zwischen 1&#160;kByte und 2 MB für das Programm und zwischen 32&#160;Bytes und 48&#160;kByte für die Daten. Das erwähnte RAM ist dabei intern gemeint, während für den ROM-Teil sowohl interne als auch externe Lösungen vorkommen. Viele Modelle können aber auch wesentlich größeren externen Speicher ansprechen.
+Programmierung[Bearbeiten | Quelltext bearbeiten]
+  PIC18F8720 Mikrocontroller in einem 80-pin-TQFP-Gehäuse
+Mikrocontroller werden meist in den Programmiersprachen Assembler oder C programmiert. Andere Sprachen wie BASIC, Pascal, Forth, Ada oder C++ werden ebenfalls eingesetzt. Im Hobbybereich haben sich für bestimmte Mikrocontroller-Typen auch eigene, speziell entworfene Sprachen (wie beispielsweise JAL für die PICmicro-Familie von Microchip Technology) etablieren können.
+Wie schon bei den Programmspeichern hängt auch die eingesetzte Programmiersprache mit von Architektur, Anwendungsziel und -anforderungen ab. Für 4-Bit-Architekturen wird praktisch ausschließlich Assembler verwendet, da nur die wenigsten Compiler die knappen Ressourcen dieser kleinsten Mikrocontroller effektiv nutzen können. Auch bei den 8-Bit-Architekturen wird häufig Assembler eingesetzt, um möglichst hohe Effizienz und Code-Dichte zu erreichen; bei Projekten, die vergleichsweise wenig der zur Verfügung stehenden μC-Ressourcen in Anspruch nehmen oder in kleineren Stückzahlen produziert werden, ist es zunehmend üblich, Hochsprachen zu verwenden, um Entwicklungsaufwand zu sparen. So werden 16- und 32-Bit-Architekturen überwiegend in Hochsprachen programmiert.
+Die am häufigsten eingesetzte Hochsprache für Mikrocontroller ist C, da hier auch ein sehr hardwarenahes Programmieren einfach möglich ist. Forth hatte in den 1980er Jahren eine gewisse Bedeutung, da es einen sehr kompakten und schnellen Code erlaubt. Dafür hat es aber eine gewöhnungsbedürftige Syntax und führt deswegen mittlerweile eher ein Schattendasein. Andere Hochsprachen für die Programmierung von Mainstream-Applikationen haben generell relativ wenig Bedeutung für die Programmierung von Mikrocontrollern, die Programmiersprache Ada hingegen wird primär in militärischen Anwendungen und in anderen sicherheitskritischen Bereichen mit hohen Anforderungen an die Sicherheit und das Laufzeitverhalten von Software (wie bspw. Avionik in Luft-/Raumfahrzeugen) eingesetzt.
+Relativ neu sind Entwicklungswerkzeuge, die den rein grafischen Entwurf von Software für Mikrocontroller zulassen. LabVIEW von National Instruments erlaubt die Erzeugung von ausführbarem Code für einige Controller und Cypress verfolgt seit einiger Zeit mit dem Werkzeug PSoCexpress das Ziel, zumindest die Realisierung von einfacheren Steuerungsanwendungen mit den PSoC-Mikrocontrollern ohne Programmierkenntnisse zu ermöglichen.
+Eine Besonderheit stellen einige Mikrocontroller dar, die einen Hochspracheninterpreter im Chip haben. Zu den ersten Bausteinen dieser Gattung gehörte u.&#160;a. ein Derivat des 8052 mit der Bezeichnung 8052AH, das als 8052AH-BASIC mit einem BASIC-Interpreter im 8&#160;kByte großen ROM ausgeliefert wurde, und der auf dem 6502-Prozessor basierende Rockwell R65F11/R65F12, der einen Forth-Interpreter im internen ROM hatte. Dadurch genügt ein beliebiger Rechner mit einer seriellen Schnittstelle und einem Terminalprogramm zur Programmierung einer solchen Lösung, es muss kein separater (oft auch teurer) Hochsprachencompiler angeschafft werden.
+Ähnliche Produkte werden heute auch von anderen Herstellern basierend auf herkömmlichen Mikrocontrollern angeboten, aktuell sind aber keine derartigen Produkte direkt von Chipherstellern bekannt. Sowohl bei Hobbyisten als auch bei professionellen Anwendern mit kleinen Stückzahlen (z.&#160;B. im Prüfmittelbau und für Labortests) erfreuen sich Mikrocontrollermodule, die in Basic oder Forth programmierbar sind, großer Beliebtheit wegen ihrer einfachen Handhabung.
+Siehe auch[Bearbeiten | Quelltext bearbeiten]
+Liste von Mikrocontrollern
+BASIC Stamp
+C-Control
+Parallax Propeller
+PowerPC
+In-System-Programmierung
+System Design Kit
+Handy Board
+Arduino-Plattform
+Tinkerforge - Mikrocontrollerbausteine
+Literatur[Bearbeiten | Quelltext bearbeiten]
+Praxiskurs AVR-Mikrocontroller in C programmieren, Franzis Verlag, 2011, ISBN 978-3-645-65071-7
+Klaus Wüst: Mikroprozessortechnik: Grundlagen, Architekturen und Programmierung von Mikroprozessoren, Mikrocontrollern und Signalprozessoren, Vieweg und Teubner, 2008, ISBN 978-3-8348-0461-7
+Andreas Roth: Das Microcontroller Kochbuch MCS51, mitp Verlag, 6. Aufl., Januar 2002, ISBN 978-3-8266-0722-6
+Andreas Roth: Das Mikrocontroller-Applikations-Kochbuch, mitp Verlag, 2. Aufl., Januar 1998, ISBN 978-3-8266-2822-1
+Weblinks[Bearbeiten | Quelltext bearbeiten]
+&#160;Wiktionary: Mikrocontroller&#160;– Bedeutungserklärungen, Wortherkunft, Synonyme, Übersetzungen
+&#160;Commons: Microcontrollers&#160;– Sammlung von Bildern, Videos und Audiodateien
+http://www.mikrocontroller.net/articles/Mikrocontroller (Übersicht)
+http://www.mikrocontroller.de (Fachartikel, News, Whitepaper und Webcasts)
+http://www.sprut.de/electronic/pic/index.htm (Einstieg in PIC-Microcontroller)
+frühe (1974) Mikrocontroller im Computer History Museum
+Mikrocontroller Projekte - Lerne und erfahre wie Innovationskraft, Technologie und Du die Welt verändern
+http://www.mikrocontroller-elektronik.de/ Magazin mit Mikrocontroller und Elektronik Projekten unter Creative Commons Lizenz
+Normdaten&#160;(Sachbegriff): GND: 4127438-6 (AKS)       
+						Abgerufen von „https://de.wikipedia.org/w/index.php?title=Mikrocontroller&amp;oldid=178064771“					
+				Kategorien: MikrocontrollerElektrische AutomatisierungstechnikDigitaltechnik				
+			Navigationsmenü
+						Meine Werkzeuge
+							Nicht angemeldetDiskussionsseiteBeiträgeBenutzerkonto erstellenAnmelden						
+						Namensräume
+							ArtikelDiskussion						
+							Varianten
+						Ansichten
+							LesenBearbeitenQuelltext bearbeitenVersionsgeschichte						
+						Mehr
+							Suche
+			Navigation
+					HauptseiteThemenportaleZufälliger Artikel				
+			Mitmachen
+					Artikel verbessernNeuen Artikel anlegenAutorenportalHilfeLetzte ÄnderungenKontaktSpenden				
+			Werkzeuge
+					Links auf diese SeiteÄnderungen an verlinkten SeitenSpezialseitenPermanenter LinkSeiten­informationenWikidata-DatenobjektArtikel zitieren				
+			Drucken/­exportieren
+					Buch erstellenAls PDF herunterladenDruckversion				
+			In anderen Projekten
+					CommonsWikibooks				
+			In anderen Sprachen
+					AfrikaansالعربيةAzərbaycancaБългарскиBosanskiCatalàČeštinaDanskΕλληνικάEnglishEspañolEestiEuskaraفارسیSuomiFrançaisGalegoעבריתहिन्दीMagyarBahasa IndonesiaÍslenskaItaliano日本語Basa Jawaಕನ್ನಡ한국어LatviešuМакедонскиമലയാളംमराठीBahasa Melayuမြန်မာဘာသာNederlandsNorsk nynorskNorskਪੰਜਾਬੀPolskiPortuguêsRomânăРусскийScotsSrpskohrvatski / српскохрватскиසිංහලSimple EnglishSlovenčinaSlovenščinaShqipСрпски / srpskiSvenskaதமிழ்ไทยTürkçeУкраїнськаTiếng Việt中文				
+				Links bearbeiten			
+								 Diese Seite wurde zuletzt am 5. Juni 2018 um 20:58 Uhr bearbeitet.
+								Abrufstatistik
+Der Text ist unter der Lizenz „Creative Commons Attribution/Share Alike“ verfügbar; Informationen zu den Urhebern und zum Lizenzstatus eingebundener Mediendateien (etwa Bilder oder Videos) können im Regelfall durch Anklicken dieser abgerufen werden. Möglicherweise unterliegen die Inhalte jeweils zusätzlichen Bedingungen. Durch die Nutzung dieser Website erklären Sie sich mit den Nutzungsbedingungen und der Datenschutzrichtlinie einverstanden.
+Wikipedia® ist eine eingetragene Marke der Wikimedia Foundation Inc.
+								Datenschutz
+								Über Wikipedia
+								Impressum
+								Entwickler
+								Stellungnahme zu Cookies
+								Mobile Ansicht
+</result>

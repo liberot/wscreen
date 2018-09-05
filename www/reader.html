@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+
+<!-- Required meta tags -->
+<meta charset="utf-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<style type="text/css">
+
+body {
+    background-color: #ffffff;
+}
+
+#screen {
+    text-align: center;
+    margin-bottom: 2em;
+    font-size: 2.5em;
+    font-family: Georgia;
+    font-weight: bold;
+    background-color: #f0f2ea;
+    color: #485450;
+    padding-top: 1em;
+    padding-bottom: 3em;
+    letter-spacing: .11em;
+    width: 80%;
+    margin: auto;
+}   
+
+#controls {
+	letter-spacing: 0em;
+    width: 80%;
+    margin: auto;
+}
+
+#controls #sourceInput {
+	width: 375px;
+}
+
+
+</style>
+
+<script type="text/javascript">
+'use strict';
+
+var CP = {
+    
+    serviceUrl: '/',
+    screen: null,
+    sourceInput: null,
+
+    coll: null,
+    raw: null,
+
+    wordsOnScreen: 9,   
+
+    runState: null,
+    RUNNING: 0x00,
+    SUSPENDED: 0x01,
+    STOPPED: 0x02,
+    DONE: 0x03,
+    LOADING: 0x04,
+
+    tasker: null,
+    
+    defaultLoopInterval: 350,
+    numericLoopInterval: 1000,
+    loopInterval: 350,
+
+    defaultIntervalInput: null,
+	defaultIntervalInput: null,
+
+    current: null,
+    DEFAULT: 0x00,
+    NUMERIC: 0x01,
+
+    lr: 1,
+    defaultSliceLength: 13,
+    maxSliceLength: 32,
+    
+    execOnLoad: null,
+
+    init: function() {
+        CP.log('init:', arguments);
+        CP.execOnLoad = CP.start;
+    },
+
+    loadPage: function() {
+    	CP.log('loadPage:', arguments);
+		
+    	CP.sourceInput = document.getElementById('sourceInput');
+		
+		// stolen from https://stackoverflow.com/questions/8567114/how-to-make-an-ajax-call-without-jquery#8567149
+		CP.xmlhttp = new XMLHttpRequest();
+		CP.xmlhttp.onreadystatechange = function() {
+			if (CP.xmlhttp.readyState == XMLHttpRequest.DONE) {
+				if (CP.xmlhttp.status == 200) {
+					// CP.log(CP.xmlhttp.response);
+					// CP.log(CP.xmlhttp);
+					var r = CP.xmlhttp.response.replace('<?xml version="1.0" encoding="utf-8"?>', '');
+                        r = r.replace('&nbsp;', '\ ');
+					CP.coll = r.split('\ ');
+					CP.execOnLoad();
+        		}
+				else if (CP.xmlhttp.status == 400) {
+					alert('error 400: ', arguments);
+				}
+				else {
+					alert('error: ', arguments);
+				}
+			}
+		};
+		CP.xmlhttp.open("POST", CP.serviceUrl, true);
+		CP.xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		CP.xmlhttp.send(CP.sourceInput.value);	
+	},
+
+	setNumericInterval: function() {
+		CP.log('setNumericInterval:', arguments);
+		CP.numericIntervalInput = document.getElementById('numericIntervalInput');
+		CP.numericLoopInterval = CP.numericIntervalInput.value; 
+		CP.restart();
+	},
+
+	setDefaultInterval: function() {
+		CP.log('setDefaultInterval:', arguments);
+		CP.defaultIntervalInput = document.getElementById('defaultIntervalInput');
+		CP.defaultLoopInterval = CP.defaultIntervalInput.value; 
+		CP.restart();
+	},
+
+    start: function() {
+        // CP.log('start:', arguments);
+        
+        if(CP.runState == CP.RUNNING){
+            CP.log('running already:', arguments);
+            return;
+        }
+        
+        CP.tasker = window.clearTimeout(CP.tasker);
+        CP.tasker = window.setTimeout(CP.run, CP.loopInterval *CP.lr);
+        
+        CP.runState = CP.RUNNING;
+    },
+
+    restart: function() {
+    	CP.log('restart:', arguments);
+        
+        CP.suspend();
+        CP.start();
+    },
+
+    suspend: function() {
+        CP.log('suspend:', arguments);
+        
+        CP.task = window.clearTimeout(CP.task);
+        CP.runState = CP.SUSPENDED;
+    },
+
+    stop: function() {
+        CP.log('stop:', arguments);
+        
+        CP.suspend();
+        CP.runState = CP.STOPPED;
+    },
+
+    setTypeOfCurrentSlice: function() {
+        // CP.log('setTypeOfCurrentSlice:', arguments);
+        
+        CP.typeOfCurrentSlice = CP.DEFAULT;
+
+        if(CP.currentSlice.match(/[0-9]/)){
+            CP.typeOfCurrentSlice = CP.NUMERIC;
+        }
+
+        // length adjust
+        var l = CP.currentSlice.length >= 
+       		CP.maxSliceLength ? CP.maxSliceLength : CP.currentSlice.length;
+
+        // tokens
+        CP.lr = (l / CP.defaultSliceLength);
+        CP.lr*= 2;
+
+        // numbers are numbers
+        if(CP.NUMERIC == CP.typeOfCurrentSlice){
+            CP.lr = 1;
+        }
+    },
+
+    setLoopInterval: function() {
+        // CP.log('setLoopInterval:', arguments);
+        
+        CP.loopInterval = arguments[0];
+    },
+
+    run: function() {
+        // CP.log('run:', arguments);
+        
+        CP.currentSlice = CP.coll.shift();
+        CP.coll.push(CP.currentSlice);
+
+        CP.setTypeOfCurrentSlice();
+
+        switch(CP.typeOfCurrentSlice){
+            
+            case CP.DEFAULT:
+                CP.setLoopInterval(CP.defaultLoopInterval);
+                break;
+            
+            case CP.NUMERIC:
+                CP.setLoopInterval(CP.numericLoopInterval);
+                break;
+        };
+
+        // CP.log(CP.currentSlice, CP.typeOfCurrentSlice);
+
+        CP.screen = document.getElementById('screen');
+        CP.screen.innerHTML = CP.currentSlice;
+        
+        // returns if suspended
+        if(CP.SUSPENDED == CP.runState){
+        	return;
+        }
+
+        // returns if stopped
+        if(CP.STOPPED == CP.runState){
+        	return;
+        }
+        
+        // loops
+        CP.runState = CP.DONE;
+        CP.start();
+    },
+
+    log: function() {
+        console.log(arguments);
+    }
+};
+
+window.document.onload = CP.init();
+
+</script>
+
+<title></title>
+
+</head>
+
+
+
+<body>
+
+    <div id="controls">
+    	
+            <p>
+    		<input id="sourceInput" type="text" value="https://de.wikipedia.org/wiki/Transistor"></input>
+    		<button id="sourceLoad" onclick="javascript:CP.loadPage();">Load</button>
+            </p>
+
+    		<p>
+            <input id="defaultIntervalInput" type="text" value="350" onChange="javascript:CP.setDefaultInterval();"></input>
+    		<input id="numericIntervalInput" type="text" value="1000" onChange="javascript:CP.setNumericInterval();"></input>
+            </p>
+    		
+            <p>
+            <button id="sourceLoad" onclick="javascript:CP.start();">Start</button></input>
+    		<button id="sourceLoad" onclick="javascript:CP.suspend();">Suspend</button></input>
+            </p>
+            
+    </div>
+
+    <div id="screen"></div>
+
+</body>
+
+
+
+
+</html>
+
