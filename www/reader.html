@@ -168,7 +168,12 @@ var CP = {
         if(CP.currentSlice.match(/[0-9]/)){
             CP.typeOfCurrentSlice = CP.NUMERIC;
         }
+    },
 
+    // method evaluates time frame of the current slice to be casted on screen
+    setSlowdownRateOfCurrentSlice: function() {
+        // CP.log('setSlowdownRateOfSlice:', arguments);
+        
         // length adjust
         // var l = CP.currentSlice.length >= CP.maxSliceLength ? CP.maxSliceLength : CP.currentSlice.length;
 
@@ -204,6 +209,7 @@ var CP = {
         
         CP.setCurrentSlice();
         CP.setTypeOfCurrentSlice();
+        CP.setSlowdownRateOfCurrentSlice();
 
         switch(CP.typeOfCurrentSlice){
             
