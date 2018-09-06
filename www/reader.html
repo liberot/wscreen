@@ -59,9 +59,9 @@ var CP = {
 
     tasker: null,
     
-    defaultLoopInterval: 350,
-    numericLoopInterval: 1000,
-    loopInterval: 350,
+    defaultLoopInterval: 50,
+    numericLoopInterval: 50,
+    loopInterval: 50,
 
     defaultIntervalInput: null,
 	defaultIntervalInput: null,
@@ -196,14 +196,14 @@ var CP = {
     setLoopInterval: function() {
         // CP.log('setLoopInterval:', arguments);
         
-        CP.loopInterval = arguments[0];
+        CP.loopInterval = parseInt(arguments[0]);
     },
 
     setCurrentSlice: function() {
         // CP.log('setCurrentSlice:', arguments);
         
         CP.currentSlice = '';
-        while(CP.currentSlice.length < CP.desiredSliceLength){
+        while(CP.currentSlice.length <= CP.desiredSliceLength){
             var tmp = CP.coll.shift();
             CP.coll.push(tmp);
             CP.currentSlice += tmp +'\ ';
@@ -271,8 +271,8 @@ window.document.onload = CP.init();
         </p>
 
         <p>
-            <input id="defaultIntervalInput" type="text" value="350" onChange="javascript:CP.setDefaultInterval();"></input>
-            <input id="numericIntervalInput" type="text" value="1000" onChange="javascript:CP.setNumericInterval();"></input>
+            <input id="defaultIntervalInput" type="text" value="50" onChange="javascript:CP.setDefaultInterval();"></input>
+            <input id="numericIntervalInput" type="text" value="50" onChange="javascript:CP.setNumericInterval();"></input>
             <input id="desiredSliceLengthInput" type="text" value="17" onChange="javascript:CP.setDesiredSliceLength();"></input>
         </p>
 
