@@ -72,6 +72,7 @@ var CP = {
     lr: 1,
     defaultSliceLength: 13,
     maxSliceLength: 32,
+    desiredSliceLength: 24,
     
     execOnLoad: null,
 
@@ -188,11 +189,25 @@ var CP = {
         CP.loopInterval = arguments[0];
     },
 
+    setCurrentSlice: function() {
+        // CP.log('setCurrentSlice:', arguments);
+        
+        CP.currentSlice = '';
+        while(CP.currentSlice.length < CP.desiredSliceLength){
+            var tmp = CP.coll.shift();
+            CP.coll.push(tmp);
+            CP.currentSlice += tmp +'\ ';
+        }
+    },
+
     run: function() {
         // CP.log('run:', arguments);
         
+        /*
         CP.currentSlice = CP.coll.shift();
         CP.coll.push(CP.currentSlice);
+        */
+        CP.setCurrentSlice();
 
         CP.setTypeOfCurrentSlice();
 
@@ -246,20 +261,20 @@ window.document.onload = CP.init();
 
     <div id="controls">
     	
-            <p>
-    		<input id="sourceInput" type="text" value="https://de.wikipedia.org/wiki/Calvados_(Getränk)"></input>
-    		<button id="sourceLoad" onclick="javascript:CP.loadPage();">Load</button>
-            </p>
+        <p>
+            <input id="sourceInput" type="text" value="https://de.wikipedia.org/wiki/Calvados_(Getränk)"></input>
+            <button id="sourceLoad" onclick="javascript:CP.loadPage();">Load</button>
+        </p>
 
-    		<p>
+        <p>
             <input id="defaultIntervalInput" type="text" value="350" onChange="javascript:CP.setDefaultInterval();"></input>
-    		<input id="numericIntervalInput" type="text" value="1000" onChange="javascript:CP.setNumericInterval();"></input>
-            </p>
-    		
-            <p>
+            <input id="numericIntervalInput" type="text" value="1000" onChange="javascript:CP.setNumericInterval();"></input>
+        </p>
+
+        <p>
             <button id="sourceLoad" onclick="javascript:CP.start();">Start</button></input>
-    		<button id="sourceLoad" onclick="javascript:CP.suspend();">Suspend</button></input>
-            </p>
+            <button id="sourceLoad" onclick="javascript:CP.suspend();">Suspend</button></input>
+        </p>
             
     </div>
 
