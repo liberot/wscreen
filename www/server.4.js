@@ -12,10 +12,9 @@ const proxy = http.createServer((req, res1) => {
     });
 
     req.on('end', function () {
-      
       console.log('downloading: ', targetUrl);
-      var buf = '';
-        
+      
+      var buf = '';  
       https.get(targetUrl, function(res2) {
 
         res2.on('data', function(data) {
@@ -27,7 +26,7 @@ const proxy = http.createServer((req, res1) => {
           buf = buf.replace(/<script>(?:.|\n|\r)+?<\/script>/, '');
           buf = buf.replace(/<(?:.|\n)*?>/gm, '');
           buf = buf.replace(/\n\s*\n/g, '\n');
-          buf = buf.replace(/\s\s+/g, ' ');
+          buf = buf.replace(/\s\s+/g, '\ ');
 
           var xml = '<?xml version="1.0" encoding="utf-8"?>';
               xml+= '<result>' +buf +'</result>';
@@ -46,7 +45,7 @@ const proxy = http.createServer((req, res1) => {
           });
        
           res1.writeHead(200, {'Content-Type': 'application/xml'});
-            res1.end(xml);
+          res1.end(xml);
         
           return;
         });
