@@ -51,6 +51,7 @@ var CP = {
     raw: null,
 
     runState: null,
+
     RUNNING: 0x00,
     SUSPENDED: 0x01,
     STOPPED: 0x02,
@@ -64,15 +65,18 @@ var CP = {
     loopInterval: 50,
 
     defaultIntervalInput: null,
-	defaultIntervalInput: null,
+	numericIntervalInput: null,
+    desiredSliceLengthInput: null,
 
     DEFAULT: 0x00,
     NUMERIC: 0x01,
 
     slowdownRate: 1,
+    
+    desiredSliceLength: 17,
+    
     defaultSliceLength: 13,
     maxSliceLength: 32,
-    desiredSliceLength: 17,
     
     execOnLoad: null,
 
@@ -210,12 +214,8 @@ var CP = {
         }
     },
 
-    run: function() {
-        // CP.log('run:', arguments);
-        
-        CP.setCurrentSlice();
-        CP.setTypeOfCurrentSlice();
-        CP.setSlowdownRateOfCurrentSlice();
+    setCurrentLoopInterval: function() {
+        // CP.log('setCurrentLoopInterval:', arguments);
 
         switch(CP.typeOfCurrentSlice){
             
@@ -227,6 +227,15 @@ var CP = {
                 CP.setLoopInterval(CP.numericLoopInterval);
                 break;
         };
+    },
+
+    run: function() {
+        // CP.log('run:', arguments);
+        
+        CP.setCurrentSlice();
+        CP.setTypeOfCurrentSlice();
+        CP.setSlowdownRateOfCurrentSlice();
+        CP.setCurrentLoopInterval();
 
         CP.screen = document.getElementById('screen');
         CP.screen.innerHTML = CP.currentSlice;
