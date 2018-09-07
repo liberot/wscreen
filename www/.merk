@@ -1,0 +1,3 @@
+openssl genrsa 1024 > ./keys/host.key
+chmod 0400 ./keys/host.key
+openssl req -new -x509 -nodes -sha1 -days 3650 -key ./keys/host.key -out ./keys/host.cert
