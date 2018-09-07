@@ -7,9 +7,9 @@ const options = {
   cert: fs.readFileSync('./keys/host.cert')
 };
 
-const proxy = https.createServer(options, (req, res1) => {
+const proxy = https.createServer(options, (req, res1st) => {
 
-// const proxy = http.createServer((req, res1) => {
+// const proxy = http.createServer((req, res1st) => {
 
   if('POST' == req.method){
     var targetUrl = '';
@@ -22,13 +22,13 @@ const proxy = https.createServer(options, (req, res1) => {
       console.log('downloading: ', targetUrl);
       
       var buf = '';  
-      https.get(targetUrl, function(res2) {
+      https.get(targetUrl, function(res2nd) {
 
-        res2.on('data', function(data) {
+        res2nd.on('data', function(data) {
           buf += data;
         });
         
-        res2.on('end', function() {
+        res2nd.on('end', function() {
           buf = buf.replace(/<head>(?:.|\n|\r)+?<\/head>/, '');
           buf = buf.replace(/<script>(?:.|\n|\r)+?<\/script>/, '');
           buf = buf.replace(/<(?:.|\n)*?>/gm, '');
@@ -51,8 +51,8 @@ const proxy = https.createServer(options, (req, res1) => {
             }
           });
        
-          res1.writeHead(200, {'Content-Type': 'application/xml'});
-          res1.end(xml);
+          res1st.writeHead(200, {'Content-Type': 'application/xml'});
+          res1st.end(xml);
         
           return;
         });
@@ -63,9 +63,12 @@ const proxy = https.createServer(options, (req, res1) => {
   }
 
   var doc = fs.readFileSync('reader.html');
-  res1.writeHead(200, {'Content-Type': 'text/html'});
-  res1.end(doc);
+  res1st.writeHead(200, {'Content-Type': 'text/html'});
+  res1st.end(doc);
 
 });
 
 proxy.listen(8000);
+
+console.log('https://127.0.0.1:8000');
+
