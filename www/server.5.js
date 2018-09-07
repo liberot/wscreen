@@ -7,8 +7,10 @@ const options = {
 	cert: fs.readFileSync('./keys/host.cert')
 };
 
-const proxy = https.createServer(options);
-
-
+const proxy = https.createServer(options, (req, res) => {
+	var doc = fs.readFileSync('reader.html');
+	res.writeHead(200, {'Content-Type': 'text/html'});
+	res.end(doc);
+});
 
 proxy.listen(8001);
