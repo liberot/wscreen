@@ -41,7 +41,7 @@ body {
 
 var CP = {
     
-    serviceUrl: '/',
+    serviceUrl: '',
     
     screen: null,
     
@@ -60,16 +60,17 @@ var CP = {
 
     tasker: null,
     
-    defaultLoopInterval: 50,
-    numericLoopInterval: 50,
+    defaultLoopInterval: 500,
+    numericLoopInterval: 1300,
     loopInterval: 50,
 
     defaultIntervalInput: null,
-	numericIntervalInput: null,
+    numericIntervalInput: null,
     desiredSliceLengthInput: null,
 
     DEFAULT: 0x00,
     NUMERIC: 0x01,
+    POINT_AT_THE_END_OF_LINE: 0x02,
 
     slowdownRate: 1,
     
@@ -98,19 +99,19 @@ var CP = {
 					// CP.log(CP.xmlhttp.response);
 					// CP.log(CP.xmlhttp);
 					var r = CP.xmlhttp.response.replace('<?xml version="1.0" encoding="utf-8"?>', '');
-                        r = r.replace('&nbsp;', '\ ');
+					r = r.replace('&nbsp;', '\ ');
 					CP.coll = r.split('\ ');
 					CP.execOnLoad();
         		}
-				else if (CP.xmlhttp.status == 400) {
+                else if (CP.xmlhttp.status == 400) {
 					alert('error 400: ', arguments);
 				}
-				else {
+                else {
 					alert('error: ', arguments);
 				}
 			}
 		};
-		CP.xmlhttp.open("POST", CP.serviceUrl, true);
+		CP.xmlhttp.open('POST', CP.serviceUrl, true);
 		CP.xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		CP.xmlhttp.send(CP.sourceInput.value);	
 	},
@@ -178,6 +179,11 @@ var CP = {
         if(CP.currentSlice.match(/[0-9]/)){
             CP.typeOfCurrentSlice = CP.NUMERIC;
         }
+
+        if(CP.currentSlice.match(/\.\s/)){
+            CP.typeOfCurrentSlice = CP.NUMERIC;
+        }
+
     },
 
     // method evaluates time frame of the current slice to be casted on screen
@@ -224,6 +230,10 @@ var CP = {
                 break;
             
             case CP.NUMERIC:
+                CP.setLoopInterval(CP.numericLoopInterval);
+                break;
+
+            case CP.POINT_AT_THE_END_OF_LINE:
                 CP.setLoopInterval(CP.numericLoopInterval);
                 break;
         };
@@ -280,8 +290,8 @@ window.onload = function(e) { CP.init() };
         </p>
 
         <p>
-            <input id="defaultIntervalInput" type="text" value="50" onChange="javascript:CP.setDefaultInterval();"></input>
-            <input id="numericIntervalInput" type="text" value="50" onChange="javascript:CP.setNumericInterval();"></input>
+            <input id="defaultIntervalInput" type="text" value="500" onChange="javascript:CP.setDefaultInterval();"></input>
+            <input id="numericIntervalInput" type="text" value="1300" onChange="javascript:CP.setNumericInterval();"></input>
             <input id="desiredSliceLengthInput" type="text" value="17" onChange="javascript:CP.setDesiredSliceLength();"></input>
         </p>
 
